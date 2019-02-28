@@ -11,8 +11,9 @@ public class ComBean {
         sComPort=sPort;
         bRec = buffer;
         mRecOrSend = recOrSend;
-//        bRec=new byte[size];
-//        System.arraycopy(buffer, 0, bRec, 0, size);
+//        bRec=new byte[recOrSend];
+//        System.arraycopy(buffer, 0, bRec, 0, recOrSend);
+
         SimpleDateFormat sDateFormat = new SimpleDateFormat("hh:mm:ss");
         sRecTime = sDateFormat.format(new java.util.Date());
     }

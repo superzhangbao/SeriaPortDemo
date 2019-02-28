@@ -13,6 +13,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -109,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                         .setSingleChoiceItems(mPortFinder.getBaudRateList(), 0, (dialog, which) -> {
                             String bRate = mPortFinder.getBaudRateList()[which];
                             Integer baudRate = Integer.valueOf(bRate);
-                            mBtnSetBaud.setText(baudRate);
+                            mBtnSetBaud.setText(bRate);
                             mPortHelper.setBaudRate(baudRate);
                             dialog.dismiss();
                         })
@@ -262,7 +263,12 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             Log.w(TAG, hex);
         } else {
             sMsg.append("[Text] ");
-            String text = new String(comBean.bRec);
+            String text = null;
+            try {
+                text = new String(comBean.bRec,"utf-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
             sMsg.append(text);
             sMsg.append("------->").append(count).append("------->size:").append(text.length());
             Log.w(TAG, text);

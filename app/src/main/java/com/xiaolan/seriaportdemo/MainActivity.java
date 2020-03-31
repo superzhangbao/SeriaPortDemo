@@ -1,6 +1,8 @@
 package com.xiaolan.seriaportdemo;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -83,8 +85,10 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         mPortFinder = new SerialPortFinder();
         mPortHelper = new SerialPortHelper();
         mPortHelper.setOnDataReceivedListener(this);
+        Log.e(TAG,Build.DEVICE);
     }
 
+    @SuppressLint("SetTextI18n")
     @OnClick({R.id.btn_set_port, R.id.btn_set_baud, R.id.btn_set_data, R.id.btn_set_stop,
             R.id.btn_set_verify, R.id.btn_send, R.id.btn_open_port,
             R.id.btn_clear})
@@ -109,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                         .setSingleChoiceItems(mPortFinder.getBaudRateList(), 0, (dialog, which) -> {
                             String bRate = mPortFinder.getBaudRateList()[which];
                             Integer baudRate = Integer.valueOf(bRate);
-                            mBtnSetBaud.setText(baudRate);
+                            mBtnSetBaud.setText(bRate);
                             mPortHelper.setBaudRate(baudRate);
                             dialog.dismiss();
                         })
@@ -157,6 +161,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     return;
                 }
                 String trim = mEt.getText().toString().trim();
+                Log.e(TAG,trim);
                 if (!TextUtils.isEmpty(trim)) {
                     if (sendType == 0) {
                         mPortHelper.sendHex(trim);
@@ -168,6 +173,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 }
                 break;
             case R.id.btn_open_port:
+                Log.e(TAG,Build.DEVICE);
                 //打开/关闭串口
                 if (mBtnOpenPort.getText().equals("打开串口")) {
                     try {

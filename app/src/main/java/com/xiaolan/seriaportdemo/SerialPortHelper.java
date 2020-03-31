@@ -140,8 +140,6 @@ public class SerialPortHelper {
 
     //----------------------------------------------------
     private class ReadThread extends Thread {
-
-
         @Override
         public void run() {
             super.run();

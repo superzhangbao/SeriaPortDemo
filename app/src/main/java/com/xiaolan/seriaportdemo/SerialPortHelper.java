@@ -147,7 +147,7 @@ public class SerialPortHelper {
                 try {
                     if (mBufferedInputStream == null)
                         mBufferedInputStream = new BufferedInputStream(mInputStream, 1024 * 64);
-                    byte[] buffer = new byte[60];
+                    byte[] buffer = new byte[10];
                     int len;
                     if (mBufferedInputStream.available() > 0) {
                         try {

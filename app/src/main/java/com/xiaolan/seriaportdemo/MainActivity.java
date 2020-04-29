@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -15,6 +16,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -58,6 +60,12 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     RadioGroup mRgRev;
     @BindView(R.id.editTextRecDisp)
     EditText mEditTextRecDisp;
+    @BindView(R.id.btn_send_c)
+    Button mBtnSendC;
+    @BindView(R.id.btn_send_ack)
+    Button mBtnSendAck;
+    @BindView(R.id.btn_send_eot)
+    Button mBtnSendEot;
 
 
     private MyHandler mMyHandler;
@@ -92,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     @SuppressLint("SetTextI18n")
     @OnClick({R.id.btn_set_port, R.id.btn_set_baud, R.id.btn_set_data, R.id.btn_set_stop,
             R.id.btn_set_verify, R.id.btn_send, R.id.btn_open_port,
-            R.id.btn_clear})
+            R.id.btn_clear,R.id.btn_send_c,R.id.btn_send_ack,R.id.btn_send_eot})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_set_port:
@@ -201,6 +209,17 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 mEt.clearFocus();
                 KeybordUtils.closeKeybord(mEt, this);
                 break;
+            case R.id.btn_send_c:
+                mPortHelper.sendTxt("C");
+                break;
+            case R.id.btn_send_ack:
+                mPortHelper.sendHex("06");
+                break;
+            case R.id.btn_send_eot:
+//                mPortHelper.sendHex("04");
+                // serialPort为串口对象
+               mPortHelper.sendFile(Environment.getExternalStorageDirectory()+"/Download/XIAOLAN/log/2019_01_01.txt");
+                break;
         }
     }
 
@@ -291,6 +310,15 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     private static class MyHandler extends Handler {
 
+    }
+
+    private String getSDPath() {
+        File sdDir = null;
+        boolean equals = Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
+        if (equals) {
+            sdDir = Environment.getExternalStorageDirectory();
+        }
+        return sdDir+File.separator;
     }
 
     @Override

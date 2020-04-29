@@ -148,11 +148,11 @@ public class SerialPortHelper {
                 try {
                     if (mBufferedInputStream == null)
                         mBufferedInputStream = new BufferedInputStream(mInputStream, 1024 * 64);
-                    byte[] buffer = new byte[10];
+                    byte[] buffer = new byte[256];
                     int len;
                     if (mBufferedInputStream.available() > 0) {
                         try {
-                            sleep(50);
+                            sleep(100);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -359,4 +359,18 @@ public class SerialPortHelper {
     public void setOnDataReceivedListener(OnDataReceivedListener onDataReceivedListener) {
         mOnDataReceivedListener = onDataReceivedListener;
     }
+
+    /**
+     * 发送文件
+     * @param filePath
+     */
+    public void sendFile(String filePath) {
+        // serialPort为串口对象
+        Xmodem xmodem = new Xmodem(mInputStream,mOutputStream);
+        // filePath为文件路径
+        // ./bin/xxx.bin
+        xmodem.send(filePath);
+    }
+
+
 }

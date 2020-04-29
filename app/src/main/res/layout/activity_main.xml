@@ -141,6 +141,31 @@
                 android:text="Text接收" />
         </RadioGroup>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btn_send_c"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="发送C"
+            android:textAllCaps="false" />
+        <Button
+            android:id="@+id/btn_send_ack"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="发送ACK"
+            android:textAllCaps="false" />
+        <Button
+            android:id="@+id/btn_send_eot"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="发送EOT"
+            android:textAllCaps="false" />
+    </LinearLayout>
     <EditText
         android:id="@+id/editTextRecDisp"
         android:layout_width="match_parent"
